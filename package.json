@@ -2,7 +2,8 @@
     "name": "angular-trivia-quizz",
     "version": "0.0.0",
     "stackblitz": {
-        "startCommand": "npm start"
+        "startCommand": "npm start",
+        "installDependencies": true
     },
     "scripts": {
         "ng": "ng",
