@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { OpenTriviaService, Question } from '../api/open-trivia.service';
+import { OpenTriviaService } from '../api/open-trivia.service';
 import { Category } from '../models/category';
 import { Difficulties } from '../models/enums/difficulties.enum';
+import { DisplayedQuestion, Questionnaire } from '../models/questionnaire';
+import { UserAnswers } from '../models/user-answers';
+import { shuffle } from '../utils/shuffle';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TriviaDataService {
-    readonly questionnaire$: Subject<Question[] | undefined> = new Subject();
+    readonly questionnaire$: Subject<Questionnaire | undefined> = new Subject();
 
     constructor(private openTriviaService: OpenTriviaService) {}
 
@@ -30,9 +33,25 @@ export class TriviaDataService {
      */
     setQuestionnaire(category: number, difficulty: Difficulties): void {
         this.openTriviaService.getQuestions(category, difficulty).subscribe((questions) => {
-            console.log('coucou');
-            this.questionnaire$.next(questions);
+            const newQuestionnaire: Questionnaire = {
+                questions: questions.map(
+                    (question) =>
+                        ({
+                            question: question.question,
+                            answers: shuffle([
+                                question.correct_answer,
+                                ...question.incorrect_answers
+                            ]),
+                            correctAnswer: question.correct_answer
+                        }) as DisplayedQuestion
+                )
+            };
+            this.questionnaire$.next(newQuestionnaire);
         });
+    }
+
+    setUserAnswers(userAnswers: UserAnswers) {
+        console.log(userAnswers);
     }
 
     // resetQuestionnaire(): void {

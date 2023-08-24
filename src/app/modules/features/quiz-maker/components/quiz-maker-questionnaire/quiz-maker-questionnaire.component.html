@@ -1,7 +1,11 @@
 <ng-container *ngIf="questionnaire$ | async as questionnaire">
-    <form #questionnaireForm="ngForm">
+    <form
+        #questionnaireForm="ngForm"
+        class="d-flex flex-column"
+        (ngSubmit)="submitAnswers(questionnaireForm.value)"
+    >
         <app-quiz-maker-questionnaire-question
-            *ngFor="let question of questionnaire; index as i"
+            *ngFor="let question of questionnaire.questions; index as i"
             [question]="question"
             [idQuestion]="'question' + i"
         ></app-quiz-maker-questionnaire-question>
@@ -9,9 +13,9 @@
         <button
             mat-raised-button
             color="primary"
+            class="mt-3"
             *ngIf="questionnaireForm.valid"
-            (submit)="submitAnswers(questionnaireForm.value)"
-            (click)="submitAnswers(questionnaireForm.value)"
+            type="submit"
         >
             Submit
         </button>

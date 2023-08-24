@@ -3,20 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 import { Category, RawCategoriesResponse } from '../models/category';
 import { Difficulties } from '../models/enums/difficulties.enum';
-
-export interface RawQuestionsResponse {
-    response_code: number;
-    results: Question[];
-}
-
-export interface Question {
-    category: string;
-    type: string;
-    difficulty: string;
-    question: string;
-    correct_answer: string;
-    incorrect_answers: string[];
-}
+import { Question, RawQuestionsResponse } from '../models/question';
 
 @Injectable({
     providedIn: 'root'

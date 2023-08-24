@@ -1,7 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { Question } from './../../../../../../api/open-trivia.service';
-import { shuffle } from './../../../../../../utils/shuffle';
+import { DisplayedQuestion } from 'src/app/models/questionnaire';
 
 @Component({
     selector: 'app-quiz-maker-questionnaire-question',
@@ -9,17 +8,9 @@ import { shuffle } from './../../../../../../utils/shuffle';
     styleUrls: ['./quiz-maker-questionnaire-question.component.scss'],
     viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
-export class QuizMakerQuestionnaireQuestionComponent implements OnChanges {
-    @Input() question!: Question;
+export class QuizMakerQuestionnaireQuestionComponent {
+    @Input() question!: DisplayedQuestion;
     @Input() idQuestion!: string;
 
-    randomizedAnswers: string[] = [];
     selectedAnswer: string = '';
-
-    ngOnChanges(): void {
-        this.randomizedAnswers = shuffle([
-            this.question.correct_answer,
-            ...this.question.incorrect_answers
-        ]);
-    }
 }
