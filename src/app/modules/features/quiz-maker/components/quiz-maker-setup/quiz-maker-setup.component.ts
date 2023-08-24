@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from '../../../../../models/category';
-import { Difficulties } from '../../../../../models/enums/difficulties.enum';
-import { TriviaDataService } from '../../../../../services/trivia-data.service';
+import { Category } from './../../../../../models/category';
+import { Difficulties } from './../../../../../models/enums/difficulties.enum';
+import { QuizOptions } from './../../../../../models/quiz-options';
+import { TriviaDataService } from './../../../../../services/trivia-data.service';
 
 @Component({
     selector: 'app-quiz-maker-setup',
@@ -10,15 +11,23 @@ import { TriviaDataService } from '../../../../../services/trivia-data.service';
     styleUrls: ['./quiz-maker-setup.component.scss']
 })
 export class QuizMakerSetupComponent implements OnInit {
-    categories$: Observable<Category[]> = this.triviaDataService.getCategories();
-    difficulties = Object.values(Difficulties);
+    protected categories$: Observable<Category[]> = this.triviaDataService.getCategories();
+    protected difficulties: Difficulties[] = Object.values(Difficulties);
 
-    selectedCategory: Category | undefined;
-    selectedDifficulty: Difficulties | undefined;
+    protected selectedCategory: Category | undefined;
+    protected selectedDifficulty: Difficulties | undefined;
 
     constructor(private triviaDataService: TriviaDataService) {}
 
     ngOnInit(): void {
         this.triviaDataService.getCategories().subscribe((data) => console.log(data));
     }
+
+    createQuiz(quizOptions: QuizOptions): void {
+        this.triviaDataService.setQuestionnaire(quizOptions.category, quizOptions.difficulty);
+    }
+
+    // resetQuiz(): void {
+    //     this.triviaDataService.resetQuestionnaire();
+    // }
 }

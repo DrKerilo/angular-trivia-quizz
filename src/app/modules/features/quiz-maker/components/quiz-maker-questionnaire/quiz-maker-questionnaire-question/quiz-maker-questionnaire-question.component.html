@@ -1,0 +1,16 @@
+<article *ngIf="question">
+    <h3>{{question.question}}</h3>
+
+    <div class="d-flex flex-row gap-3">
+        <mat-button-toggle-group
+            [(ngModel)]="selectedAnswer"
+            aria-label="Answer"
+            [name]="idQuestion"
+            required
+        >
+            <mat-button-toggle *ngFor="let answer of randomizedAnswers" [value]="answer"
+                >{{answer | decodeHtml}}</mat-button-toggle
+            >
+        </mat-button-toggle-group>
+    </div>
+</article>
