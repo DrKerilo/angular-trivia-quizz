@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { OpenTriviaService } from '../api/open-trivia.service';
 import { Category } from '../models/category';
+import { AppPaths } from '../models/enums/app-paths.enum';
 import { Difficulties } from '../models/enums/difficulties.enum';
 import { DisplayedQuestion, Questionnaire } from '../models/questionnaire';
 import { UserAnswers } from '../models/user-answers';
@@ -11,9 +13,12 @@ import { shuffle } from '../utils/shuffle';
     providedIn: 'root'
 })
 export class TriviaDataService {
-    readonly questionnaire$: Subject<Questionnaire | undefined> = new Subject();
+    readonly questionnaire$: Subject<Questionnaire | undefined> = new ReplaySubject(1);
 
-    constructor(private openTriviaService: OpenTriviaService) {}
+    constructor(
+        private openTriviaService: OpenTriviaService,
+        private router: Router
+    ) {}
 
     /**
      * Retrieve all categories
@@ -50,8 +55,17 @@ export class TriviaDataService {
         });
     }
 
-    setUserAnswers(userAnswers: UserAnswers) {
+    setUserAnswers(questionnaire: Questionnaire, userAnswers: UserAnswers) {
         console.log(userAnswers);
+        const currentQuestionnaire: Questionnaire = JSON.parse(JSON.stringify(questionnaire));
+        Object.values(userAnswers).forEach((userAnswer, index) => {
+            currentQuestionnaire.questions[index].userAnswer = userAnswer;
+        });
+        console.log(currentQuestionnaire);
+        this.router.navigate(['/' + AppPaths.QUIZ_RESULTS]).then(() => {
+            console.log('coucou', currentQuestionnaire);
+        });
+        this.questionnaire$.next(currentQuestionnaire);
     }
 
     // resetQuestionnaire(): void {

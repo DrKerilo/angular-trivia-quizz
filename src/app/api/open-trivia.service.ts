@@ -15,7 +15,7 @@ export class OpenTriviaService {
     private readonly numberOfQuestions = 5;
     private readonly typeMultiple = 'multiple';
 
-    private readonly isMocked = true;
+    private readonly isMocked = false;
     private readonly mockCategories: Category[] = [
         { id: 1, name: 'Catégorie 1' },
         { id: 2, name: 'Catégorie 2' }
@@ -102,7 +102,7 @@ export class OpenTriviaService {
                 category +
                 '&difficulty=' +
                 difficulty +
-                '&multiple=' +
+                '&type=' +
                 this.typeMultiple;
 
             return this.httpClient

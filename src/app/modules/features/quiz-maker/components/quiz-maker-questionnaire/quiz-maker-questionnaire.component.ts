@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserAnswers } from 'src/app/models/user-answers';
 import { TriviaDataService } from 'src/app/services/trivia-data.service';
+import { Questionnaire } from '../../../../../models/questionnaire';
 
 @Component({
     selector: 'app-quiz-maker-questionnaire',
@@ -12,7 +13,8 @@ export class QuizMakerQuestionnaireComponent {
 
     constructor(private triviaDataService: TriviaDataService) {}
 
-    submitAnswers(answers: UserAnswers): void {
-        console.log('submitted answers: ', answers);
+    submitAnswers(questionnaire: Questionnaire, userAnswers: UserAnswers): void {
+        console.log('submitted answers: ', userAnswers);
+        this.triviaDataService.setUserAnswers(questionnaire, userAnswers);
     }
 }

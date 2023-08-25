@@ -1,5 +1,5 @@
 <article *ngIf="question" class="mb-3">
-    <h3>{{question.question}}</h3>
+    <h3>{{question.question | decodeHtml}}</h3>
 
     <div class="d-flex flex-row gap-3">
         <mat-button-toggle-group

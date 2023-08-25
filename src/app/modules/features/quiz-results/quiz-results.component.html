@@ -1,1 +1,4 @@
 <p>quiz-results works!</p>
+<ng-container *ngIf="questionnaire$ | async as questionnaire">
+    hola {{questionnaire | json}}
+</ng-container>

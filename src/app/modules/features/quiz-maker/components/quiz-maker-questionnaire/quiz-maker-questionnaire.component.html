@@ -2,13 +2,13 @@
     <form
         #questionnaireForm="ngForm"
         class="d-flex flex-column"
-        (ngSubmit)="submitAnswers(questionnaireForm.value)"
+        (ngSubmit)="submitAnswers(questionnaire, questionnaireForm.value)"
     >
-        <app-quiz-maker-questionnaire-question
+        <app-question
             *ngFor="let question of questionnaire.questions; index as i"
             [question]="question"
             [idQuestion]="'question' + i"
-        ></app-quiz-maker-questionnaire-question>
+        ></app-question>
 
         <button
             mat-raised-button
