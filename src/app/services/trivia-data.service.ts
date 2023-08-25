@@ -56,19 +56,26 @@ export class TriviaDataService {
     }
 
     setUserAnswers(questionnaire: Questionnaire, userAnswers: UserAnswers) {
-        console.log(userAnswers);
         const currentQuestionnaire: Questionnaire = JSON.parse(JSON.stringify(questionnaire));
+        // Init of user's score
+        let userScore = 0;
+
         Object.values(userAnswers).forEach((userAnswer, index) => {
             currentQuestionnaire.questions[index].userAnswer = userAnswer;
+
+            if (userAnswer === currentQuestionnaire.questions[index].correctAnswer) {
+                userScore++;
+            }
         });
-        console.log(currentQuestionnaire);
+
+        currentQuestionnaire.userScore = userScore;
+
         this.router.navigate(['/' + AppPaths.QUIZ_RESULTS]).then(() => {
-            console.log('coucou', currentQuestionnaire);
+            this.questionnaire$.next(currentQuestionnaire);
         });
-        this.questionnaire$.next(currentQuestionnaire);
     }
 
-    // resetQuestionnaire(): void {
-    //     this.questionnaire$.next(undefined);
-    // }
+    resetQuestionnaire(): void {
+        this.questionnaire$.next(undefined);
+    }
 }

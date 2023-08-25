@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppPaths } from '../../../models/enums/app-paths.enum';
 import { TriviaDataService } from '../../../services/trivia-data.service';
 
 @Component({
@@ -9,5 +11,13 @@ import { TriviaDataService } from '../../../services/trivia-data.service';
 export class QuizResultsComponent {
     readonly questionnaire$ = this.triviaDataService.questionnaire$.asObservable();
 
-    constructor(private triviaDataService: TriviaDataService) {}
+    constructor(
+        private router: Router,
+        private triviaDataService: TriviaDataService
+    ) {}
+
+    createNewQuiz(): void {
+        this.triviaDataService.resetQuestionnaire();
+        this.router.navigate(['/' + AppPaths.QUIZ_MAKER]);
+    }
 }

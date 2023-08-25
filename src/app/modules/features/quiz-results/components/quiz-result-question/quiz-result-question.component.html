@@ -1,0 +1,16 @@
+<article *ngIf="question" class="mb-3 py-2 px-3 result-question-container">
+    <h3>{{question.question | decodeHtml}}</h3>
+
+    <div class="d-flex flex-row flex-wrap gap-3">
+        <button
+            mat-raised-button
+            *ngFor="let answer of question.answers"
+            [color]="getColor(answer)"
+            class="pe-none"
+            tabindex="-1"
+            aria-disabled="true"
+        >
+            {{answer | decodeHtml}}
+        </button>
+    </div>
+</article>

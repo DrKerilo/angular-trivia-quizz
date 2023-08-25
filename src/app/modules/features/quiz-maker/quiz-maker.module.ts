@@ -6,22 +6,28 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { FormsModule } from '@angular/forms';
-import { QuestionModule } from '../../shared/components/question/question.module';
+import { DecodeHtmlModule } from '../../../pipes/decode-html/decode-html.module';
+import { QuizMakerQuestionnaireQuestionComponent } from './components/quiz-maker-questionnaire/quiz-maker-questionnaire-question/quiz-maker-questionnaire-question.component';
 import { QuizMakerQuestionnaireComponent } from './components/quiz-maker-questionnaire/quiz-maker-questionnaire.component';
 import { QuizMakerSetupComponent } from './components/quiz-maker-setup/quiz-maker-setup.component';
 import { QuizMakerRoutingModule } from './quiz-maker-routing.module';
 import { QuizMakerComponent } from './quiz-maker.component';
 
 @NgModule({
-    declarations: [QuizMakerComponent, QuizMakerSetupComponent, QuizMakerQuestionnaireComponent],
+    declarations: [
+        QuizMakerComponent,
+        QuizMakerSetupComponent,
+        QuizMakerQuestionnaireComponent,
+        QuizMakerQuestionnaireQuestionComponent
+    ],
     imports: [
         CommonModule,
+        DecodeHtmlModule,
         MatButtonModule,
         MatButtonToggleModule,
         MatFormFieldModule,
         MatSelectModule,
         QuizMakerRoutingModule,
-        QuestionModule,
         FormsModule
     ]
 })

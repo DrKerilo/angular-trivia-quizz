@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from './../../../../../models/category';
 import { Difficulties } from './../../../../../models/enums/difficulties.enum';
@@ -10,7 +10,7 @@ import { TriviaDataService } from './../../../../../services/trivia-data.service
     templateUrl: './quiz-maker-setup.component.html',
     styleUrls: ['./quiz-maker-setup.component.scss']
 })
-export class QuizMakerSetupComponent implements OnInit {
+export class QuizMakerSetupComponent {
     protected categories$: Observable<Category[]> = this.triviaDataService.getCategories();
     protected difficulties: Difficulties[] = Object.values(Difficulties);
 
@@ -19,15 +19,7 @@ export class QuizMakerSetupComponent implements OnInit {
 
     constructor(private triviaDataService: TriviaDataService) {}
 
-    ngOnInit(): void {
-        this.triviaDataService.getCategories().subscribe((data) => console.log(data));
-    }
-
     createQuiz(quizOptions: QuizOptions): void {
         this.triviaDataService.setQuestionnaire(quizOptions.category, quizOptions.difficulty);
     }
-
-    // resetQuiz(): void {
-    //     this.triviaDataService.resetQuestionnaire();
-    // }
 }

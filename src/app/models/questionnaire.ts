@@ -1,5 +1,6 @@
 export interface Questionnaire {
     questions: DisplayedQuestion[];
+    userScore?: number;
 }
 
 export interface DisplayedQuestion {

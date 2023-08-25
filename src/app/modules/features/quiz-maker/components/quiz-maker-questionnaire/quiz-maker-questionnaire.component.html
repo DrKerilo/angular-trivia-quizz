@@ -4,11 +4,11 @@
         class="d-flex flex-column"
         (ngSubmit)="submitAnswers(questionnaire, questionnaireForm.value)"
     >
-        <app-question
+        <app-quiz-maker-questionnaire-question
             *ngFor="let question of questionnaire.questions; index as i"
             [question]="question"
             [idQuestion]="'question' + i"
-        ></app-question>
+        ></app-quiz-maker-questionnaire-question>
 
         <button
             mat-raised-button
