@@ -15,6 +15,10 @@
             class="my-3 mx-5 p-2 fw-bold rounded-1 text-center"
         >
             You scored {{questionnaire.userScore}} out of 5 !
+            <ng-container [ngSwitch]="questionnaire.userScore">
+                <span *ngSwitchCase="0">Ouch ! Try again !</span>
+                <span *ngSwitchCase="5">Perfect !</span>
+            </ng-container>
         </div>
 
         <button mat-raised-button color="primary" class="mt-3" (click)="createNewQuiz()">

@@ -12,58 +12,13 @@ export class OpenTriviaService {
     private readonly baseUrl = 'https://opentdb.com';
     private readonly categoryPath = '/api_category.php';
     private readonly questionPath = '/api.php';
+    private readonly mockBasePath = '/mocks';
+    private readonly mockCategoriesPath = '/categories.json';
+    private readonly mockQuestionsPath = '/questions.json';
     private readonly numberOfQuestions = 5;
     private readonly typeMultiple = 'multiple';
 
     private readonly isMocked = false;
-    private readonly mockCategories: Category[] = [
-        { id: 1, name: 'Catégorie 1' },
-        { id: 2, name: 'Catégorie 2' }
-    ];
-    private readonly mockQuestions: Question[] = [
-        {
-            category: 'General Knowledge',
-            type: 'multiple',
-            difficulty: 'easy',
-            question: 'Which of the following card games revolves around numbers and basic math?',
-            correct_answer: 'Uno',
-            incorrect_answers: ['Go Fish', 'Twister', 'Munchkin']
-        },
-        {
-            category: 'General Knowledge',
-            type: 'multiple',
-            difficulty: 'easy',
-            question: 'What is the Zodiac symbol for Gemini?',
-            correct_answer: 'Twins',
-            incorrect_answers: ['Fish', 'Scales', 'Maiden']
-        },
-        {
-            category: 'General Knowledge',
-            type: 'multiple',
-            difficulty: 'easy',
-            question:
-                'According to the nursery rhyme, what fruit did Little Jack Horner pull out of his Christmas pie?',
-            correct_answer: 'Plum',
-            incorrect_answers: ['Apple', 'Peach', 'Pear']
-        },
-        {
-            category: 'General Knowledge',
-            type: 'multiple',
-            difficulty: 'easy',
-            question: 'How many furlongs are there in a mile?',
-            correct_answer: 'Eight',
-            incorrect_answers: ['Two', 'Four', 'Six']
-        },
-        {
-            category: 'General Knowledge',
-            type: 'multiple',
-            difficulty: 'easy',
-            question:
-                'The drug cartel run by Pablo Escobar originated in which South American city?',
-            correct_answer: 'Medell&iacute;n',
-            incorrect_answers: ['Bogot&aacute;', 'Quito', 'Cali']
-        }
-    ];
 
     constructor(private httpClient: HttpClient) {}
 
@@ -74,7 +29,7 @@ export class OpenTriviaService {
      */
     getCategories(): Observable<Category[]> {
         if (this.isMocked) {
-            return of(this.mockCategories);
+            return this.httpClient.get<Category[]>(this.mockBasePath + this.mockCategoriesPath);
         } else {
             return this.httpClient
                 .get<RawCategoriesResponse>(this.baseUrl + this.categoryPath)
@@ -91,7 +46,7 @@ export class OpenTriviaService {
      */
     getQuestions(category: number, difficulty: Difficulties): Observable<Question[]> {
         if (this.isMocked) {
-            return of(this.mockQuestions);
+            return this.httpClient.get<Question[]>(this.mockBasePath + this.mockQuestionsPath);
         } else {
             const url =
                 this.baseUrl +

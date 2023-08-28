@@ -9,7 +9,13 @@ import { DisplayedQuestion } from '../../../../../models/questionnaire';
 export class QuizResultQuestionComponent {
     @Input() question!: DisplayedQuestion;
 
-    getColor(answer: string): string {
+    /**
+     * Get element's background color value based on user's answer
+     *
+     * @param answer
+     * @returns
+     */
+    getColor(answer: string): 'accent' | 'warn' | '' {
         if (answer === this.question.correctAnswer) {
             return 'accent';
         }

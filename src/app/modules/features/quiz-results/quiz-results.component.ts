@@ -16,6 +16,9 @@ export class QuizResultsComponent {
         private triviaDataService: TriviaDataService
     ) {}
 
+    /**
+     * Reset the questionnaire and go back to quiz creation page
+     */
     createNewQuiz(): void {
         this.triviaDataService.resetQuestionnaire();
         this.router.navigate(['/' + AppPaths.QUIZ_MAKER]);

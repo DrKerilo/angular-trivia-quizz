@@ -13,8 +13,13 @@ export class QuizMakerQuestionnaireComponent {
 
     constructor(private triviaDataService: TriviaDataService) {}
 
+    /**
+     * Submit user's answers and go the results
+     *
+     * @param questionnaire
+     * @param userAnswers
+     */
     submitAnswers(questionnaire: Questionnaire, userAnswers: UserAnswers): void {
-        console.log('submitted answers: ', userAnswers);
-        this.triviaDataService.setUserAnswers(questionnaire, userAnswers);
+        this.triviaDataService.showResults(questionnaire, userAnswers);
     }
 }

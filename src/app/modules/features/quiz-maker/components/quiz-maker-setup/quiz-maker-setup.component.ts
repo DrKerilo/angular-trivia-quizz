@@ -19,6 +19,11 @@ export class QuizMakerSetupComponent {
 
     constructor(private triviaDataService: TriviaDataService) {}
 
+    /**
+     * Create a 5-question quiz based on user's selections for category and difficulty
+     *
+     * @param quizOptions
+     */
     createQuiz(quizOptions: QuizOptions): void {
         this.triviaDataService.setQuestionnaire(quizOptions.category, quizOptions.difficulty);
     }

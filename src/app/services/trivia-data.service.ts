@@ -55,7 +55,13 @@ export class TriviaDataService {
         });
     }
 
-    setUserAnswers(questionnaire: Questionnaire, userAnswers: UserAnswers) {
+    /**
+     * Add user's answers to current questionnaire, calculate its score and navigate to the results
+     *
+     * @param questionnaire
+     * @param userAnswers
+     */
+    showResults(questionnaire: Questionnaire, userAnswers: UserAnswers): void {
         const currentQuestionnaire: Questionnaire = JSON.parse(JSON.stringify(questionnaire));
         // Init of user's score
         let userScore = 0;
@@ -75,6 +81,9 @@ export class TriviaDataService {
         });
     }
 
+    /**
+     * Clear the questionnaire
+     */
     resetQuestionnaire(): void {
         this.questionnaire$.next(undefined);
     }
